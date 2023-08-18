@@ -33,6 +33,15 @@ This makes it easy to see that they are entangled because they are all 0 or all 
 
 The first three qubits always equal each other and are grouped. Notice that the other qubits are uncorrelated with each other. Indicating the teleportation was successful.
 
+## Usage
+
+Simply  run the following commands from the man directory of this repository:
+
+```
+pip install -r requirements.txt
+python teleportation_circuit.py
+```
+
 ## Ackowledgement
 
 I would like to Acknowledge qiskit for providing the code for quantum teleportation online.
