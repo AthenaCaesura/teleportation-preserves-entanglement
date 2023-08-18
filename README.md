@@ -1,4 +1,4 @@
-# Circuit Description
+# Teleportation Preserves Entanglement
 
 Here I discuss the outputs of `teleportation_circuit.py` where I demonstrate that entanglement is preserved in the teleportation process.
 
