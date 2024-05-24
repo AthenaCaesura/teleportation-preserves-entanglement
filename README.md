@@ -1,6 +1,6 @@
 # Teleportation Preserves Entanglement
 
-Here I discuss the outputs of `teleportation_circuit.py` where I demonstrate that entanglement is preserved in the teleportation process.
+Here I discuss the outputs of `teleportation_circuit.py` where I demonstrate that entanglement is preserved in the teleportation process. This project was completed as part of proof of the correctness of the ruby slippers compiler.
 
 ## Circuit Sequence
 Here I describe what is happening in the circuit in term of the barriers that are placed. See `circuit_description.png` for reference.
