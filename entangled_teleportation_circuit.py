@@ -1,9 +1,11 @@
 # Do the necessary imports
-import numpy as np
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
 from qiskit import IBMQ, Aer, transpile
-from qiskit.visualization import plot_histogram, plot_bloch_multivector, array_to_latex
-from qiskit.extensions import Initialize
+from qiskit.visualization import (
+    plot_histogram,
+    plot_bloch_multivector,
+    array_to_latex,
+)
 from qiskit.result import marginal_counts
 from qiskit.quantum_info import random_statevector
 
@@ -19,11 +21,28 @@ def alice_gates(qc, psi, a):
     qc.h(psi)
 
 
-def measure_and_send(qc, a, b):
-    """Measures qubits a & b and 'sends' the results to Bob"""
+def measure_and_send(qc, a, b, crz, crx):
+    """Measure qubits ``a`` and ``b`` into explicit classical registers.
+
+    Args:
+        qc: The quantum circuit being modified.
+        a: The qubit whose measurement outcome is stored in ``crz`` and later
+            used to control Bob's :math:`Z` correction.
+        b: The qubit whose measurement outcome is stored in ``crx`` and later
+            used to control Bob's :math:`X` correction.
+        crz: Classical register to hold the measurement result of qubit ``a``.
+        crx: Classical register to hold the measurement result of qubit ``b``.
+
+    The original implementation measured into hard-coded classical bit
+    indices.  This caused the results to be stored in the wrong registers if
+    additional classical registers were added earlier in the circuit.  By
+    explicitly passing the destination registers we ensure the measurement
+    outcomes control Bob's corrective gates as intended.
+    """
+
     qc.barrier()
-    qc.measure(a, 0)
-    qc.measure(b, 1)
+    qc.measure(a, crz)
+    qc.measure(b, crx)
 
 
 # This function takes a QuantumCircuit (qc), integer (qubit)
@@ -60,7 +79,7 @@ alice_gates(qc, 2, 3)
 
 ## STEP 3
 # Alice then sends her classical bits to Bob
-measure_and_send(qc, 2, 3)
+measure_and_send(qc, 2, 3, crz, crx)
 
 ## STEP 4
 # Bob decodes qubits
